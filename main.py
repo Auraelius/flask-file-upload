@@ -1,4 +1,3 @@
-
 import os
 from flask import Flask, request, redirect, url_for, render_template, flash, send_from_directory
 from werkzeug.utils import secure_filename
@@ -13,13 +12,21 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # 
   # This code comes from the Flask documentation
   # http://flask.pocoo.org/docs/0.12/patterns/fileuploads/
+  # Learn more about how HTTP handles file uploads at
+  # 
 
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    '''
+        Returns true if there's an extension and the extension is allowed
+    '''
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    '''
+        GET: Displays a form
+        POST: Checks for errors, saves the file, displays the file
+    '''
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:

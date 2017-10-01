@@ -28,33 +28,32 @@ def upload_file():
         POST: Checks for errors, saves the file, displays the file
     '''
     if request.method == 'POST':
+        # do non-file fields first
+        print(request)
+
+
+
+
+
         # check if the post request has the file part
         if 'file' not in request.files:
-            flash('No file part')
+            print('No file part')
             return redirect(request.url) # this sends the user back to where she came from
         file = request.files['file']
         # if user does not select file, browser also submits a empty part without filename
         if file.filename == '':
-            flash('No selected file')
+            print('No selected file')
             return redirect(request.url)
+        print(file)
         if file and allowed_file(file.filename):
             # sanitize the file name to protect against malicious user input
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
             # display the new file using a route constructed just for that file
             return redirect(url_for('uploaded_file',
                                     filename=filename))
     # GET - show the form
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template('form.html')
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):

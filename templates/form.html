@@ -1,10 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Upload file</h1>
 
-<form action="/login" method="post">
+<h1>Upload new File</h1>
 
-    <input type="submit" value="Login" class="btn btn-default">
+
+<form method=post enctype=multipart/form-data id="theForm" action="">
+
+    <!-- required -->
+    <label for="firstNameField">First Name (required)</label>
+    <input type="text" id="firstNameField" name="first-name">
+
+    <!-- <label for="lastNameField">Last Name</label>
+    <input type="text" id="lastNameField" name="last-name">
+
+    <label for="emailField">email (required)</label>
+    <input type="text" id="emailField" name="email"> -->
+
+    <label for="theFileInputField">Avatar image:</label>
+    <input id="theFileInputField" name=file type="file">
+    <div id="feedbackArea"></div>
+    <div id="previewImage"></div>
+
+    <!-- Start with submit button disabled; enable on form validation -->
+    <input id="submitButton" type=submit value=Upload >
 </form>
+
 {% endblock %}

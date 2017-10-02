@@ -1,5 +1,10 @@
+body{
+  font-family: sans-serif;
+}
+
 input {
   display: block;
+  margin: 20px;
 }
 
 .avatar {
@@ -23,8 +28,15 @@ input {
   width: 5rem;
   border: 1px solid darkgray;
   padding: 1px 20px;
+  margin-bottom: 20px;
+}
+.fauxButton a {
+  text-decoration: none;
 }
 
+.feedbackIcon {
+  
+}
 
 
 .errorMsg {

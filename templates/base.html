@@ -8,10 +8,5 @@
     <body>
         {% block content %}
         {% endblock %}
-        <!-- 
-            Notice that the script tag comes last. We do this to make sure scripts are loaded after page has been rendered 
-        -->
-        <script src="{{ url_for('static', filename='js/form.js') }}"></script>
-            
     </body>
 </html>

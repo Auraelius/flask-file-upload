@@ -2,27 +2,33 @@
 
 {% block content %}
 
-<h1>Give me the deets!</h1>
+<h1>Enter profile:</h1>
 
 <form method=post enctype=multipart/form-data id="theForm" action="">
 
     <!-- required -->
     <label for="firstNameField">First Name (required)</label>
+    <span id="firstNameFieldFeedback" class="feedbackIcon"></span>
     <input type="text" id="firstNameField" name="first-name">
 
-    <!-- <label for="lastNameField">Last Name</label>
+    <label for="lastNameField">Last Name</label>
+    <span id="lastNameFieldFeedback" class="feedbackIcon"></span>
     <input type="text" id="lastNameField" name="last-name">
 
-    <label for="emailField">email (required)</label>
-    <input type="text" id="emailField" name="email"> -->
+    <label for="emailField">Email (required)</label>
+    <span id="emailFieldFeedback" class="feedbackIcon"></span>
+    <input type="text" id="emailField" name="email">
 
-    <label for="theFileInputField">Avatar image:</label>
+    <label for="theFileInputField">Avatar image (required; must be less than 1Mb)</label>
+    <span id="fileFieldFeedback" class="feedbackIcon"></span>
     <input id="theFileInputField" name=file type="file">
     <div id="feedbackArea"></div>
     <div id="previewImage"></div>
 
     <!-- Start with submit button disabled; enable on form validation -->
-    <input id="submitButton" type=submit value=Upload >
+    <input id="submitButton" type=submit value="Set My Profile">
 </form>
 
+<!-- Notice that the script tag comes last. We do this to make sure scripts are loaded after page has been rendered. -->
+<script src="{{ url_for('static', filename='js/form.js') }}"></script>
 {% endblock %}

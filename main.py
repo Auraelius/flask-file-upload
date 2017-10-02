@@ -12,7 +12,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # 
   # This code comes from the Flask documentation
   # http://flask.pocoo.org/docs/0.12/patterns/fileuploads/
-  # Learn more about how HTTP handles file uploads at
   # 
 
 def allowed_file(filename):
@@ -34,40 +33,40 @@ def upload_file():
         if firstName == "":
             errorMsg += "No first name. "
             print('No first name')
-        # lasttName = request.form['last-name']
-        # email = request.form['email']
-        # if email == "":
-        #     errorMsg += "No email<br>"
-        #     print('No email')
+        lastName = request.form['last-name']
+        email = request.form['email']
+        if email == "":
+            errorMsg += "No email. "
+            print('No email')
+
+        print("first name: ", firstName)
+        print("last name: ", lastName)
+        print("email: ", email)
 
         # check if the post request has the file part
         if 'file' not in request.files:
             print('No file part')
             errorMsg += "No file part. "
-            return render_template("results.html", errorMsg=errorMsg, firstName=firstName,)
-            #return redirect(request.url) # this sends the user back to where she came from
+            return render_template("results.html", errorMsg=errorMsg, firstName=firstName,lastName=lastName,email=email)
+
         file = request.files['file']
+
         # if user does not select file, browser also submits a empty part without filename
         if file.filename == '':
-            print('No selected file')
-            errorMsg += "No selected file. "
-            return render_template("results.html", errorMsg=errorMsg, firstName=firstName,)
-            #return redirect(request.url)
+            print('No uploaded file')
+            errorMsg += "No uploaded file. "
+            return render_template("results.html", errorMsg=errorMsg,firstName=firstName,lastName=lastName,email=email)
+
         print(file)
         if file and allowed_file(file.filename):
             # sanitize the file name to protect against malicious user input
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
-            # display the new file using a route constructed just for that file
-            return render_template("results.html", errorMsg=errorMsg, firstName=firstName,  filepath=filepath)
+            return render_template("results.html", errorMsg=errorMsg,firstName=firstName,filepath=filepath,lastName=lastName,email=email)
 
     # GET - show the form
     return render_template('form.html')
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run()

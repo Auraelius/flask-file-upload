@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1>Results</h1>
+<div class="fauxButton" ><a href="/">Try Again</a></div>
+
+<div class="errorMsg">
+    {% if errorMsg != "" %}
+        <p>Server says: {{errorMsg}}</p>
+    {% endif %}
+</div>
+
+
+
+<div class="container">
+    <div class="avatar">
+        <img src="{{filepath}}" alt="">
+    </div>
+    <div class="formResults">
+            <p>First Name: {{firstName}}</p>
+            <p>Last Name: {{lastName}}</p>
+            <p>Email: {{email}}</p>
+    </div>
+</div>
+
+{% endblock %}

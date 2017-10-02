@@ -27,31 +27,41 @@ def upload_file():
         GET: Displays a form
         POST: Checks for errors, saves the file, displays the file
     '''
+    errorMsg = ""
     if request.method == 'POST':
         # do non-file fields first
-        print(request)
-
-
-
-
+        firstName = request.form['first-name']
+        if firstName == "":
+            errorMsg += "No first name. "
+            print('No first name')
+        # lasttName = request.form['last-name']
+        # email = request.form['email']
+        # if email == "":
+        #     errorMsg += "No email<br>"
+        #     print('No email')
 
         # check if the post request has the file part
         if 'file' not in request.files:
             print('No file part')
-            return redirect(request.url) # this sends the user back to where she came from
+            errorMsg += "No file part. "
+            return render_template("results.html", errorMsg=errorMsg, firstName=firstName,)
+            #return redirect(request.url) # this sends the user back to where she came from
         file = request.files['file']
         # if user does not select file, browser also submits a empty part without filename
         if file.filename == '':
             print('No selected file')
-            return redirect(request.url)
+            errorMsg += "No selected file. "
+            return render_template("results.html", errorMsg=errorMsg, firstName=firstName,)
+            #return redirect(request.url)
         print(file)
         if file and allowed_file(file.filename):
             # sanitize the file name to protect against malicious user input
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
             # display the new file using a route constructed just for that file
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+            return render_template("results.html", errorMsg=errorMsg, firstName=firstName,  filepath=filepath)
+
     # GET - show the form
     return render_template('form.html')
 

@@ -1,3 +1,32 @@
 input {
   display: block;
 }
+
+.avatar {
+  background-color: ivory;
+}
+
+.avatar img {
+ /* max-height: 100px; */
+}
+
+.container{
+  display: flex;
+}
+
+.formResults {
+  background-color: lightgoldenrodyellow;
+  padding: 20px 40px;
+}
+
+.fauxButton{
+  width: 5rem;
+  border: 1px solid darkgray;
+  padding: 1px 20px;
+}
+
+
+
+.errorMsg {
+  color: red;
+}

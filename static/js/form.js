@@ -54,7 +54,7 @@ function displayValidFieldIcon(id){
   // TODO it would be better to be given the field and to traverse to the icon
   // rather than have to know the id of the icon
 
-  e = document.getElementById(id);
+  let e = document.getElementById(id);
   
   // clear any previous image
   if (e.childNodes[0]) {
@@ -68,7 +68,7 @@ function displayValidFieldIcon(id){
 }
 
 function displayInValidFieldIcon(id){
-  e = document.getElementById(id);
+  let e = document.getElementById(id);
   if (e.childNodes[0]) {
     e.removeChild(e.childNodes[0])
   }
@@ -112,14 +112,14 @@ function checkSubmitButton(){
 function handleFirstName() {
   // the first name must be present. If the field is cleared, invalidate
   let value = this.value;
-  // let debugString = "First Name field fhanged to: " + value;
+  // let debugString = "firstName field changed to: " + value;
   // alert(debugString);
   if (value != "") {
     displayValidFieldIcon("firstNameFieldFeedback");
-    theForm.firstNameIsValid = true;
+    theForm.firstNameIsValid = true; // this part of the form is OK
   } else {
     displayInValidFieldIcon("firstNameFieldFeedback");
-    theForm.firstNameIsValid = false;
+    theForm.firstNameIsValid = false; // this part of the form is NOT ok
   }
   checkSubmitButton(); // if the whole form is ready, enable the submit button
 }
@@ -189,7 +189,6 @@ function handleFiles() {
   // Since Js is enabled, let's disable to submit button until the
   // event handlers decide it's ok.
   document.getElementById("submitButton").disabled = true
-
 
   // Form validation event handlers
 
